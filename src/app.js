@@ -1,10 +1,10 @@
 'use strict';
 const DATA=JSON.parse(document.getElementById('catalogData').textContent), $=id=>document.getElementById(id), core=ValheimCore;
 const labels={stat:'Deaths',craft:'Crafting',build:'Building',eat:'Eating',pickup:'Trophies',fish:'Fishing',killHard:'Hunting · Hard or higher',killAny:'Hunting · Any difficulty'};
-const descriptions={"Are You Alright?":'Die in every way possible. Track all 16 required death causes.',"That Can\'t Be an Accident":'Get killed by all 10 tree species.','The Artisan':'Craft every kind of item.','The Carpenter':'Build everything.','The Gourmet':'Eat every kind of edible item.','The Master Chef':'Cook every kind of dish.','The Trophy Collector':'Collect all trophies.','The Fisherman':'Catch every kind of fish.','The Master Hunter':'Kill every kind of creature on Hard difficulty or higher.','The Hunter':'Kill every kind of creature on any difficulty.'};
+const descriptions={'The Blacksmith':'Craft every kind of weapon.',"Are You Alright?":'Die in every way possible. Track all 16 required death causes.',"That Can\'t Be an Accident":'Get killed by all 10 tree species.','The Artisan':'Craft every kind of item.','The Carpenter':'Build everything.','The Gourmet':'Eat every kind of edible item.','The Master Chef':'Cook every kind of dish.','The Trophy Collector':'Collect all trophies.','The Fisherman':'Catch every kind of fish.','The Master Hunter':'Kill every kind of creature on Hard difficulty or higher.','The Hunter':'Kill every kind of creature on any difficulty.'};
 const categories=DATA.catalog;
 const hunter=structuredClone(categories.find(c=>c.type==='killHard'));hunter.title='The Hunter';hunter.type='killAny';hunter.items.forEach(i=>i.id='The Hunter:'+i.order);categories.splice(0,0,hunter);
-const order=['The Artisan','The Carpenter','The Master Chef','The Gourmet','The Trophy Collector','The Hunter','The Master Hunter','The Fisherman',"Are You Alright?","That Can't Be an Accident"];categories.sort((a,b)=>order.indexOf(a.title)-order.indexOf(b.title));
+const order=['The Artisan','The Blacksmith','The Carpenter','The Master Chef','The Gourmet','The Trophy Collector','The Hunter','The Master Hunter','The Fisherman',"Are You Alright?","That Can't Be an Accident"];categories.sort((a,b)=>order.indexOf(a.title)-order.indexOf(b.title));
 let current='The Master Chef',save=null,overrides={},pins={},mode='achievement',lastRows=[],storageAvailable=true,toastTimer;
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>n.toLocaleString();
@@ -36,6 +36,7 @@ function render(){
  const bucket=save?.buckets[mode==='raw'?0:c.type==='killHard'?7:1],t=bucket?.stats;
  $('statline').innerHTML=t&&c.type==='stat'?`<span>Total deaths <b>${fmt(Math.floor(t[0]))}</b></span><span>Tree deaths <b>${fmt(Math.floor(t[68]))}</b></span>`:t?`<span>Items crafted <b>${fmt(Math.floor(t[13]))}</b></span><span>Food eaten <b>${fmt(Math.floor(t[49]))}</b></span><span>Build actions <b>${fmt(Math.floor(t[2]))}</b></span><span>Enemy kills <b>${fmt(Math.floor(t[6]))}</b></span>`:'';
  const notices=[];if(mode==='raw')notices.push('Lifetime actions can include progress that did not earn achievement credit. Hard-difficulty requirements are not applied in this view.');
+ if(c.title==='The Blacksmith')notices.push('This list follows the game’s 145 craftable weapons, including Club, Stone Axe, and Torch omitted from the original Artisan workbook. Overlapping entries share crafting counts, pins, and corrections with Artisan. Shields and ammunition are excluded.');
  if(c.type==='stat')notices.push('These are saved death counters, not discovery records. Achievement credit and Lifetime actions use their respective save buckets. Load a fresh .fch to update them.');
  if(c.type==='fish')notices.push('Fishing uses the game’s catch records. Merely collecting a fish does not check it off. Bait requirements are shown in the item details.');
  if(s.unknown)notices.push('Unverified items have unresolved or ambiguous save mappings. They are not counted as Missing.');

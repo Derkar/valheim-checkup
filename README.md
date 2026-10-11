@@ -52,3 +52,7 @@ Unofficial fan tool. Valheim and its game data belong to Iron Gate AB. No charac
 ## Death collections
 
 Are You Alright? tracks the 16 required death causes; That Can't Be an Accident tracks 10 tree species. Both read numeric PlayerStatType counters already present in profile 46 saves, so existing progress snapshots remain compatible. Tree chopping and tree tool tiers do not count as species deaths. Requirements were cross-checked with the community achievement guide and identifiers with the local game code.
+
+## Blacksmith collection
+
+The Blacksmith tracks 145 craftable weapons, verified from recipe items, ItemData.IsWeapon, and the achievement exclusion list in installed game assets. The game dynamically regenerates this list; its serialized 164-entry list includes excluded items. Shields and ammunition are excluded; pickaxes, bombs, staves, and torches count when the game classifies them as weapons. 142 entries overlap with Artisan and share item IDs, pins, and corrections. Club, Stone Axe, and Torch are added only to Blacksmith because the original workbook omitted them. Artisan remains at 415 entries. No game binaries are published.
