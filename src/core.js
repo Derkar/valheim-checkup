@@ -50,7 +50,7 @@ function evaluate(category,item,save,mode='achievement',override){
  if(!save)return {status:override===true?'done':override===false?'missing':'unloaded',count:0,discovery:'unknown',manual:override!==undefined};
  const bucket=save.buckets[mode==='raw'?0:category.type==='killHard'?7:1];
  const records=category.type==='killHard'||category.type==='killAny'?bucket.enemy[0]:bucket[category.type];
- const count=Math.max(0,...item.tokens.map(t=>records[t]||0));
+ const count=category.type==='stat'?Math.max(0,bucket.stats[item.statIndex]||0):Math.max(0,...item.tokens.map(t=>records[t]||0));
  const valid=item.mapping==='exact'||item.mapping==='alias';
  let status=valid?(count>0?'done':'missing'):'unknown';
  const known=new Set(category.type==='pickup'||category.type==='eat'?save.discovered.materials:save.discovered.recipes);

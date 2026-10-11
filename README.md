@@ -48,3 +48,7 @@ Edit files in `src/`, rebuild, then commit the updated `index.html`. GitHub Page
 - Supplemental identifiers and save semantics verified from installed Valheim game files
 
 Unofficial fan tool. Valheim and its game data belong to Iron Gate AB. No character saves, exported player progress, game binaries, or personal test data are included in this repository.
+
+## Death collections
+
+Are You Alright? tracks the 16 required death causes; That Can't Be an Accident tracks 10 tree species. Both read numeric PlayerStatType counters already present in profile 46 saves, so existing progress snapshots remain compatible. Tree chopping and tree tool tiers do not count as species deaths. Requirements were cross-checked with the community achievement guide and identifiers with the local game code.
